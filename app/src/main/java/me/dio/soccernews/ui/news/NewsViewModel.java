@@ -7,26 +7,52 @@ import androidx.lifecycle.ViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.dio.soccernews.data.remote.SoccerNewsApi;
 import me.dio.soccernews.domain.News;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NewsViewModel extends ViewModel {
 
-    private final MutableLiveData<List<News>> news;
+    private final MutableLiveData<List<News>> news = new MutableLiveData<>();
+    private final SoccerNewsApi api;
 
     public NewsViewModel() {
-        this.news = new MutableLiveData<>();
 
-        //TODO Remover Mock de Notícias
-        List<News> news = new ArrayList<>();
-        news.add( new News( "Bec tem desfalque importante","Em partida válida pela 2ª Rodada do Campeonato Catarinense Série B" ) );
-        news.add( new News( "Meninas jogam no sábado","Aguenta coração! Tá chegando a hora! A diretoria promoveu descontos bem bacanas em relação aos preços dos ingressos. " ) );
-        news.add( new News( "Copa do mundo feminina está terminando", "A estréia do Blumenau na série B do campeonato catarinense teve sua data alterada: será no sábado, dia 28/05/22, no estádio Ervin Blaese (Arena Master), em Indaial." ) );
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://github.com/PauloBecker/soccer-news-api/")
+                .addConverterFactory( GsonConverterFactory.create())
+                .build();
 
-        this.news.setValue( news );
+        api = retrofit.create(SoccerNewsApi.class);
+        this.findNews();
+
+    }
+
+    private void findNews() {
+        api.getNews().enqueue( new Callback<List<News>>() {
+            @Override
+            public void onResponse(Call<List<News>> call, Response<List<News>> response) {
+                if(response.isSuccessful()){
+                    news.setValue( response.body() );
+                }else{
+                    //TODO Pensar em uma estratégia de erro
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<News>> call, Throwable t) {
+
+                //TODO Pensar em uma estratégia de erro
+            }
+        } );
     }
 
     public LiveData<List<News>> getNews() {
 
-        return news;
+        return this.news;
     }
 }
