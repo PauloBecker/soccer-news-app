@@ -24,7 +24,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@+id/ivThumbnail"
             tools:text="Bec vence o Vasco" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvTitle"
             tools:text="As meninas do Bec derrotaram o Vasco no último domingo no estádio do Aderbal Ramos da Silva." />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btOpenLink"
             style="?attr/borderlessButtonStyle"
             android:layout_width="wrap_content"

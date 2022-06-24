@@ -21,38 +21,33 @@ public class NewsViewModel extends ViewModel {
     private final SoccerNewsApi api;
 
     public NewsViewModel() {
-
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://github.com/PauloBecker/soccer-news-api/")
-                .addConverterFactory( GsonConverterFactory.create())
+                .baseUrl( "https://paulobecker.github.io/soccer-news-api/" )
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         api = retrofit.create(SoccerNewsApi.class);
         this.findNews();
-
     }
 
     private void findNews() {
-        api.getNews().enqueue( new Callback<List<News>>() {
+        api.getNews().enqueue(new Callback<List<News>>() {
             @Override
             public void onResponse(Call<List<News>> call, Response<List<News>> response) {
-                if(response.isSuccessful()){
-                    news.setValue( response.body() );
-                }else{
-                    //TODO Pensar em uma estratégia de erro
+                if (response.isSuccessful()) {
+                    news.setValue(response.body());
+                } else {
+                    //TODO Pensar em uma estratégia de tratamento de erros.
                 }
             }
 
             @Override
             public void onFailure(Call<List<News>> call, Throwable t) {
-
-                //TODO Pensar em uma estratégia de erro
+                //TODO Pensar em uma estratégia de tratamento de erros.
             }
-        } );
+        });
     }
 
     public LiveData<List<News>> getNews() {
-
         return this.news;
     }
 }
