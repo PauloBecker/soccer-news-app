@@ -38,12 +38,21 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
     //Referencia: https://github.com/square/retrofit
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 
     //Referencia: https://github.com/square/picasso
     implementation 'com.squareup.picasso:picasso:2.8'
+
+    //referencia: https://developer.android.com/training/data-storage/room?hl=pt-br
+    def room_version = "2.4.1"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
 
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
